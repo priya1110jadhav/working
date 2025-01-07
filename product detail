@@ -1,0 +1,52 @@
+**Documentation for Product Detail Page Module**
+
+**1. Overview**
+
+The Product Detail Page module provides a comprehensive view of a specific product's details. Upon navigating to this page by selecting a product, the system fetches product information using the product ID embedded in the URL. The module facilitates several key features for users, including viewing, editing, and managing product details, as well as creating and managing assessments related to the product. The functionality is tailored to accommodate both owners and members of the product, ensuring seamless collaboration and data management.
+
+Key features of the Product Detail Page include:
+
+1. **Product Details Display**:
+   - Displays the product title with an editable option (via a pencil icon).
+   - Shows additional product attributes such as Brand, SIP ID, Project ID, Project Name, and Description.
+
+2. **Team Management**:
+   - Owners can manage team members by adding or removing members or assigning ownership roles.
+   - A popup interface facilitates the team management process.
+
+3. **Baseline and Final Assessment Management**:
+   - Allows creation of one Baseline Assessment and one Final Assessment per product.
+   - Users can specify assessment details and associate them with FG-spec codes.
+
+4. **Experimental Assessment Management**:
+   - Enables users to create multiple Experimental Assessments.
+   - Provides a popup interface to input assessment details and associate them with specific product codes.
+   - Includes sorting options (A-Z, by modified date, by created date) for all Experimental Assessments.
+   - Supports both Grid View and List View for displaying assessment details.
+
+5. **Grid and List View Toggle**:
+   - Grid View displays assessment details in a card layout with two cards per row.
+   - List View displays assessment details in a stacked card layout with one card per row.
+
+6. **Assessment Deletion**:
+   - Users can delete Experimental Assessments as needed.
+
+This module is implemented using React for the frontend, TypeScript for type safety, and Node.js for backend operations. It ensures a robust and user-friendly interface for managing product details and assessments effectively.
+
+---
+
+**Formatting Guidelines for Documentation**
+
+- **Font Style**: Times New Roman
+- **Font Size**:
+  - Title: 16 pt, Bold
+  - Headings: 14 pt, Bold
+  - Subheadings: 12 pt, Bold
+  - Body Text: 12 pt, Regular
+- **Spacing**: 1.5 line spacing
+- **Margins**: 1 inch on all sides
+- **Alignment**: Left-aligned for body text; center-aligned for titles and section headings
+- **Document Structure**: Use numbered headings and subheadings for clarity.
+
+Let me know when you're ready to proceed with the API call documentation or if you need adjustments to the overview. 
+
