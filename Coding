@@ -1,0 +1,222 @@
+Here’s a collection of commonly asked coding questions in interviews along with their solutions. These cover different levels of complexity and focus on data structures, algorithms, and problem-solving skills. I’ll categorize them for better understanding.
+
+1. Array and String Problems
+
+Q1: Find the missing number in an array.
+
+Given an array of integers from 1 to n with one number missing, find the missing number.
+
+function findMissingNumber(nums) {
+    const n = nums.length + 1;
+    const totalSum = (n * (n + 1)) / 2;
+    const arraySum = nums.reduce((sum, num) => sum + num, 0);
+    return totalSum - arraySum;
+}
+
+// Example
+console.log(findMissingNumber([1, 2, 4, 6, 3, 7, 8])); // Output: 5
+
+Q2: Check if a string is a palindrome.
+
+A palindrome is a string that reads the same backward as forward.
+
+function isPalindrome(str) {
+    const reversed = str.split('').reverse().join('');
+    return str === reversed;
+}
+
+// Example
+console.log(isPalindrome("racecar")); // Output: true
+console.log(isPalindrome("hello"));   // Output: false
+
+Q3: Two sum problem.
+
+Given an array of integers, return the indices of the two numbers that add up to a given target.
+
+function twoSum(nums, target) {
+    const map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement), i];
+        }
+        map.set(nums[i], i);
+    }
+    return [];
+}
+
+// Example
+console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+
+Q4: Find the maximum subarray sum (Kadane’s Algorithm).
+
+function maxSubArray(nums) {
+    let maxSoFar = nums[0];
+    let maxEndingHere = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i]);
+        maxSoFar = Math.max(maxSoFar, maxEndingHere);
+    }
+    return maxSoFar;
+}
+
+// Example
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // Output: 6
+
+Q5: Merge two sorted arrays.
+
+function mergeSortedArrays(nums1, nums2) {
+    let merged = [];
+    let i = 0, j = 0;
+    while (i < nums1.length && j < nums2.length) {
+        if (nums1[i] < nums2[j]) {
+            merged.push(nums1[i]);
+            i++;
+        } else {
+            merged.push(nums2[j]);
+            j++;
+        }
+    }
+    return merged.concat(nums1.slice(i)).concat(nums2.slice(j));
+}
+
+// Example
+console.log(mergeSortedArrays([1, 3, 5], [2, 4, 6])); // Output: [1, 2, 3, 4, 5, 6]
+
+2. Linked List Problems
+
+Q6: Reverse a linked list.
+
+class ListNode {
+    constructor(val, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+function reverseLinkedList(head) {
+    let prev = null;
+    let current = head;
+    while (current) {
+        let nextTemp = current.next;
+        current.next = prev;
+        prev = current;
+        current = nextTemp;
+    }
+    return prev;
+}
+
+// Example
+let head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+let reversed = reverseLinkedList(head); // Output: 4 -> 3 -> 2 -> 1
+
+Q7: Detect a cycle in a linked list.
+
+function hasCycle(head) {
+    let slow = head, fast = head;
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) return true;
+    }
+    return false;
+}
+
+// Example
+let head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = head; // Creates a cycle
+console.log(hasCycle(head)); // Output: true
+
+3. Tree Problems
+
+Q8: Check if a binary tree is a valid binary search tree (BST).
+
+function isValidBST(root, min = null, max = null) {
+    if (!root) return true;
+    if ((min !== null && root.val <= min) || (max !== null && root.val >= max)) return false;
+    return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
+}
+
+// Example
+const tree = { val: 2, left: { val: 1 }, right: { val: 3 } };
+console.log(isValidBST(tree)); // Output: true
+
+Q9: Find the height of a binary tree.
+
+function height(root) {
+    if (!root) return 0;
+    return 1 + Math.max(height(root.left), height(root.right));
+}
+
+// Example
+const tree = { val: 1, left: { val: 2 }, right: { val: 3 } };
+console.log(height(tree)); // Output: 2
+
+Q10: Level order traversal of a binary tree.
+
+function levelOrderTraversal(root) {
+    if (!root) return [];
+    let queue = [root];
+    let result = [];
+    while (queue.length) {
+        let levelSize = queue.length;
+        let level = [];
+        for (let i = 0; i < levelSize; i++) {
+            let node = queue.shift();
+            level.push(node.val);
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+        result.push(level);
+    }
+    return result;
+}
+
+// Example
+const tree = { val: 1, left: { val: 2 }, right: { val: 3 } };
+console.log(levelOrderTraversal(tree)); // Output: [[1], [2, 3]]
+
+4. Advanced Algorithmic Problems
+
+Q11: Solve the N-Queens problem.
+
+function solveNQueens(n) {
+    const solutions = [];
+    const board = Array.from({ length: n }, () => Array(n).fill('.'));
+    
+    function isSafe(row, col) {
+        for (let i = 0; i < row; i++) {
+            if (board[i][col] === 'Q') return false;
+            if (col - (row - i) >= 0 && board[i][col - (row - i)] === 'Q') return false;
+            if (col + (row - i) < n && board[i][col + (row - i)] === 'Q') return false;
+        }
+        return true;
+    }
+
+    function placeQueens(row = 0) {
+        if (row === n) {
+            solutions.push(board.map(row => row.join('')));
+            return;
+        }
+        for (let col = 0; col < n; col++) {
+            if (isSafe(row, col)) {
+                board[row][col] = 'Q';
+                placeQueens(row + 1);
+                board[row][col] = '.';
+            }
+        }
+    }
+
+    placeQueens();
+    return solutions;
+}
+
+// Example
+console.log(solveNQueens(4));
+// Output: [
+//   [".Q..", "...Q", "Q...", "..Q."],
+//   ["..Q.", "Q...", "...Q", ".Q.."]
+// ]
+
+Let me know if you want more coding problems or solutions!
