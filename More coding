@@ -1,0 +1,232 @@
+Here are additional coding problems tailored to the projects, skills, and technologies in your resume. These problems are categorized based on your expertise areas such as MERN stack, Generative AI, Micro-frontend architecture, and state management, ensuring deeper alignment with your resume.
+
+1. MERN Stack-Based Problems
+
+Q1: Implement pagination for a list of products in MongoDB using Node.js.
+
+const express = require('express');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/productsDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const productSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+});
+const Product = mongoose.model('Product', productSchema);
+
+const app = express();
+
+// Endpoint for pagination
+app.get('/products', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const products = await Product.find().skip(skip).limit(limit);
+    res.json(products);
+});
+
+// Start server
+app.listen(3000, () => console.log('Server running on port 3000'));
+
+Q2: Create a basic file upload API in Node.js.
+
+const express = require('express');
+const multer = require('multer');
+const app = express();
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/'),
+    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+});
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({ message: 'File uploaded successfully', file: req.file });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+
+Q3: Build a to-do list application with React and Express.js (MERN).
+
+Backend (Express.js):
+
+const express = require('express');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/todoDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const todoSchema = new mongoose.Schema({ task: String, completed: Boolean });
+const Todo = mongoose.model('Todo', todoSchema);
+
+const app = express();
+app.use(express.json());
+
+// CRUD endpoints
+app.get('/todos', async (req, res) => res.json(await Todo.find()));
+app.post('/todos', async (req, res) => res.json(await new Todo(req.body).save()));
+app.put('/todos/:id', async (req, res) => res.json(await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true })));
+app.delete('/todos/:id', async (req, res) => res.json(await Todo.findByIdAndDelete(req.params.id)));
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+
+Frontend (React):
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const App = () => {
+    const [todos, setTodos] = useState([]);
+    const [task, setTask] = useState('');
+
+    useEffect(() => {
+        axios.get('/todos').then(res => setTodos(res.data));
+    }, []);
+
+    const addTodo = () => {
+        axios.post('/todos', { task, completed: false }).then(res => setTodos([...todos, res.data]));
+        setTask('');
+    };
+
+    const toggleTodo = (id, completed) => {
+        axios.put(`/todos/${id}`, { completed: !completed }).then(() => {
+            setTodos(todos.map(todo => (todo._id === id ? { ...todo, completed: !completed } : todo)));
+        });
+    };
+
+    return (
+        <div>
+            <h1>To-Do List</h1>
+            <input value={task} onChange={e => setTask(e.target.value)} placeholder="New task" />
+            <button onClick={addTodo}>Add</button>
+            <ul>
+                {todos.map(todo => (
+                    <li key={todo._id}>
+                        <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.task}</span>
+                        <button onClick={() => toggleTodo(todo._id, todo.completed)}>Toggle</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default App;
+
+2. Generative AI and NLP
+
+Q4: Generate SQL queries dynamically from natural language input using OpenAI API (Python).
+
+import openai
+
+openai.api_key = "your-openai-api-key"
+
+def generate_sql_query(natural_language_query):
+    prompt = f"Convert the following natural language description into an SQL query: {natural_language_query}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150
+    )
+    return response.choices[0].text.strip()
+
+# Example
+query = "Find the total sales for each product in 2023."
+print(generate_sql_query(query))
+
+Q5: Build a chatbot that responds to finance-related queries.
+
+import openai
+
+openai.api_key = "your-openai-api-key"
+
+def chatbot_response(user_query):
+    prompt = f"You are a finance assistant. Answer the user's query: {user_query}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150
+    )
+    return response.choices[0].text.strip()
+
+# Example
+query = "What was the profit in Q1 2023?"
+print(chatbot_response(query))
+
+3. Micro-Frontend and State Management
+
+Q6: Create a micro-frontend-friendly React component using Redux.
+
+import { Provider, createStore } from 'redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const initialState = { message: 'Hello from Micro-Frontend!' };
+
+const reducer = (state = initialState, action) => state;
+
+const store = createStore(reducer);
+
+const MicroFrontend = () => {
+    const message = store.getState().message;
+    return <div>{message}</div>;
+};
+
+ReactDOM.render(
+    <Provider store={store}>
+        <MicroFrontend />
+    </Provider>,
+    document.getElementById('root')
+);
+
+Q7: Implement a micro-frontend integration for user authentication.
+
+Root App:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const AuthMicroFrontend = React.lazy(() => import('authMicroFrontend/AuthApp'));
+
+const App = () => (
+    <React.Suspense fallback="Loading Auth Micro-Frontend...">
+        <AuthMicroFrontend />
+    </React.Suspense>
+);
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+4. Data Visualization
+
+Q8: Create a dynamic line chart with Chart.js.
+
+import React, { useEffect } from 'react';
+import { Chart } from 'chart.js/auto';
+
+const LineChart = () => {
+    useEffect(() => {
+        const ctx = document.getElementById('lineChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April'],
+                datasets: [
+                    {
+                        label: 'Revenue',
+                        data: [3000, 4000, 5000, 6000],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                    },
+                ],
+            },
+        });
+    }, []);
+
+    return <canvas id="lineChart"></canvas>;
+};
+
+export default LineChart;
+
+Would you like further customization or deeper questions on a specific technology from your resume?
