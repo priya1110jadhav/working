@@ -1,0 +1,141 @@
+Here’s a comprehensive list of additional coding, theoretical, and programming skill-related questions that can help you prepare thoroughly. These are categorized into basic, intermediate, and advanced levels for various domains.
+
+Programming Fundamentals
+
+Basic:
+	1.	What is the difference between compiled and interpreted languages?
+	2.	Explain the concept of OOP (Object-Oriented Programming) and its pillars.
+	3.	What is the difference between stack and heap memory?
+	4.	Write a program to check if a number is prime or not.
+	5.	How does a for loop differ from a while loop?
+
+Intermediate:
+	1.	Explain the difference between synchronous and asynchronous programming.
+	2.	What are design patterns? Name a few and describe their use cases.
+	3.	How does garbage collection work in programming languages like Python or JavaScript?
+	4.	Write a function to reverse a linked list.
+	5.	Explain the time and space complexity of common sorting algorithms.
+
+Advanced:
+	1.	What are some techniques for optimizing algorithms with high time complexity?
+	2.	Explain memoization and provide an example of its use in dynamic programming.
+	3.	Design a custom data structure to store and retrieve data efficiently (e.g., LRU Cache).
+	4.	How does lazy loading work in web development, and how would you implement it in code?
+	5.	Write a program to solve the “N-Queens” problem.
+
+Data Structures and Algorithms
+
+Basic:
+	1.	What is the difference between an array and a linked list?
+	2.	Write a program to implement a stack using arrays.
+	3.	How does binary search work? Provide its time complexity.
+	4.	What are the different types of trees? Explain binary trees.
+	5.	Write a program to find the second largest number in an array.
+
+Intermediate:
+	1.	Explain the difference between depth-first search (DFS) and breadth-first search (BFS).
+	2.	Write a function to detect a cycle in a directed graph.
+	3.	How would you merge two sorted linked lists?
+	4.	What are hash tables, and how do they handle collisions?
+	5.	Implement a priority queue using a heap.
+
+Advanced:
+	1.	Explain the concept of tries and their applications.
+	2.	Write an algorithm to find the shortest path in a graph (e.g., Dijkstra’s or A* algorithm).
+	3.	Discuss the pros and cons of balanced trees (e.g., AVL, Red-Black).
+	4.	Implement a function to find the longest palindromic substring in a given string.
+	5.	Solve the “maximum subarray sum” problem using divide-and-conquer.
+
+Frontend Development (HTML, CSS, JavaScript)
+
+Basic:
+	1.	What is the difference between id and class in HTML?
+	2.	Explain the box model in CSS.
+	3.	What are JavaScript closures? Provide an example.
+	4.	How do you use this keyword in JavaScript?
+	5.	Write a simple webpage with a button that displays an alert on click.
+
+Intermediate:
+	1.	How do you optimize web performance on the frontend?
+	2.	What is the difference between let, const, and var in JavaScript?
+	3.	Write a function to debounce an event handler in JavaScript.
+	4.	Explain the differences between inline, block, and inline-block elements in CSS.
+	5.	What are React hooks, and when would you use useEffect?
+
+Advanced:
+	1.	Explain the virtual DOM and how it improves performance.
+	2.	How would you implement infinite scrolling in a React application?
+	3.	What is the difference between SSR (Server-Side Rendering) and CSR (Client-Side Rendering)?
+	4.	Write a custom hook in React for form validation.
+	5.	Explain the concept of hydration in Next.js.
+
+Backend Development
+
+Basic:
+	1.	What is REST, and how is it different from GraphQL?
+	2.	Write a simple Express.js server with one GET and one POST route.
+	3.	What is middleware in Node.js, and how is it used?
+	4.	How does authentication using JWT work?
+	5.	What is the difference between SQL and NoSQL databases?
+
+Intermediate:
+	1.	Explain the concept of microservices and their benefits.
+	2.	Write a Node.js script to fetch data from an external API.
+	3.	What are WebSockets, and how do they work in real-time communication?
+	4.	How would you design a simple rate-limiting middleware for an API?
+	5.	Explain the CAP theorem in distributed systems.
+
+Advanced:
+	1.	How would you design a scalable REST API for an e-commerce application?
+	2.	Write a Node.js function to implement caching using Redis.
+	3.	What is the difference between event-driven and message-driven architectures?
+	4.	How does Kubernetes help manage containerized applications?
+	5.	Discuss the pros and cons of using serverless architecture for backend systems.
+
+Database Design and Queries
+
+Basic:
+	1.	What is normalization in database design?
+	2.	Write a SQL query to retrieve all rows where a column value matches a condition.
+	3.	Explain the difference between INNER JOIN and OUTER JOIN.
+	4.	What are transactions in SQL, and why are they important?
+	5.	Write a query to count the number of records in a table.
+
+Intermediate:
+	1.	What are indexes, and how do they improve database performance?
+	2.	Write a query to find duplicate rows in a table.
+	3.	Explain how MongoDB handles data consistency.
+	4.	How would you design a database schema for a blog platform?
+	5.	Discuss the pros and cons of denormalization.
+
+Advanced:
+	1.	Write a SQL query to implement pagination for a large dataset.
+	2.	How do distributed databases handle replication and sharding?
+	3.	What are ACID properties, and how are they ensured in relational databases?
+	4.	How does query optimization work in SQL databases?
+	5.	Design a schema to support a multi-tenant SaaS application.
+
+Cloud and DevOps
+
+Basic:
+	1.	What is cloud computing, and what are its main service models (IaaS, PaaS, SaaS)?
+	2.	How does Docker help in software development?
+	3.	What is the purpose of CI/CD pipelines?
+	4.	Explain the difference between public and private cloud environments.
+	5.	What is AWS EC2, and how is it used?
+
+Intermediate:
+	1.	How does Kubernetes handle load balancing?
+	2.	Write a simple Dockerfile for a Node.js application.
+	3.	Explain the concept of infrastructure as code (IaC).
+	4.	How does AWS S3 ensure data durability?
+	5.	What are some best practices for securing cloud applications?
+
+Advanced:
+	1.	How would you design a fault-tolerant, scalable architecture for a web application on AWS?
+	2.	Explain the concept of service meshes in Kubernetes.
+	3.	How would you implement blue-green deployment in a CI/CD pipeline?
+	4.	Discuss the challenges of monitoring and logging in a microservices architecture.
+	5.	Write a Terraform script to provision an AWS EC2 instance.
+
+Let me know if you’d like more questions in any specific area or deeper coding examples!
