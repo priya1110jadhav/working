@@ -1,0 +1,242 @@
+Based on the details provided in your resume, I’ve analyzed the technologies, projects, and skills listed to craft coding questions that an interviewer might ask. These questions align with the technologies you’ve worked with, such as the MERN stack, Generative AI, state management (Redux, Context API), micro-frontend architecture, and data visualization (D3.js, Chart.js).
+
+Here’s a detailed breakdown of potential coding questions with solutions:
+
+1. MERN Stack Questions
+
+Q1: Build a simple REST API in Node.js for managing users.
+
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let users = [];
+
+// Get all users
+app.get('/users', (req, res) => {
+    res.json(users);
+});
+
+// Add a new user
+app.post('/users', (req, res) => {
+    const { id, name, email } = req.body;
+    users.push({ id, name, email });
+    res.status(201).json({ message: 'User added successfully' });
+});
+
+// Update a user
+app.put('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, email } = req.body;
+    const user = users.find(u => u.id === parseInt(id));
+    if (user) {
+        user.name = name;
+        user.email = email;
+        res.json({ message: 'User updated successfully' });
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
+// Delete a user
+app.delete('/users/:id', (req, res) => {
+    const { id } = req.params;
+    users = users.filter(u => u.id !== parseInt(id));
+    res.json({ message: 'User deleted successfully' });
+});
+
+// Start server
+app.listen(3000, () => console.log('Server running on port 3000'));
+
+Q2: Implement authentication using JWT in Node.js.
+
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const app = express();
+app.use(express.json());
+
+const SECRET_KEY = 'your-secret-key';
+
+// Generate token
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    if (username === 'admin' && password === 'password') {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token });
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
+});
+
+// Verify token
+function authenticateToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(403).json({ message: 'Token required' });
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) return res.status(403).json({ message: 'Invalid token' });
+        req.user = user;
+        next();
+    });
+}
+
+app.get('/protected', authenticateToken, (req, res) => {
+    res.json({ message: 'Welcome to the protected route', user: req.user });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+
+2. React and Frontend Development
+
+Q3: Create a React component for a counter with Redux.
+
+// Redux store setup
+import { createStore } from 'redux';
+
+const initialState = { count: 0 };
+const counterReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        default:
+            return state;
+    }
+};
+
+const store = createStore(counterReducer);
+
+// React component
+import React from 'react';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+
+const Counter = () => {
+    const count = useSelector(state => state.count);
+    const dispatch = useDispatch();
+
+    return (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+            <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+        </div>
+    );
+};
+
+const App = () => (
+    <Provider store={store}>
+        <Counter />
+    </Provider>
+);
+
+export default App;
+
+Q4: Implement a React form with validation.
+
+import React, { useState } from 'react';
+
+const Form = () => {
+    const [formData, setFormData] = useState({ name: '', email: '' });
+    const [errors, setErrors] = useState({});
+
+    const validate = () => {
+        const errors = {};
+        if (!formData.name) errors.name = 'Name is required';
+        if (!formData.email) errors.email = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email is invalid';
+        return errors;
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        } else {
+            console.log('Form Submitted', formData);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Name:</label>
+                <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+                {errors.name && <p>{errors.name}</p>}
+            </div>
+            <div>
+                <label>Email:</label>
+                <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+                {errors.email && <p>{errors.email}</p>}
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    );
+};
+
+export default Form;
+
+3. Data Visualization (D3.js and Chart.js)
+
+Q5: Create a bar chart using Chart.js.
+
+import React, { useEffect } from 'react';
+import { Chart } from 'chart.js/auto';
+
+const BarChart = () => {
+    useEffect(() => {
+        const ctx = document.getElementById('barChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        data: [10, 20, 30, 40],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    },
+                ],
+            },
+        });
+    }, []);
+
+    return <canvas id="barChart"></canvas>;
+};
+
+export default BarChart;
+
+4. AI and Machine Learning
+
+Q6: Extract structured data from unstructured text using Python (RAG technique).
+
+from langchain.chains import RetrievalQA
+from langchain.llms import OpenAI
+from langchain.vectorstores import FAISS
+from langchain.embeddings import OpenAIEmbeddings
+
+# Create embedding store
+texts = ["Revenue in 2023 was $2M", "Expenses were $1M", "Profit was $1M"]
+embeddings = OpenAIEmbeddings()
+vector_store = FAISS.from_texts(texts, embeddings)
+
+# Set up RAG-based QA
+qa_chain = RetrievalQA.from_chain_type(llm=OpenAI(), retriever=vector_store.as_retriever())
+
+# Query
+query = "What was the profit in 2023?"
+response = qa_chain.run(query)
+print(response)
+
+Would you like me to generate more coding problems tailored to specific sections of your resume?
